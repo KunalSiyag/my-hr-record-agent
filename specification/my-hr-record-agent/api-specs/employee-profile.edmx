@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SAP SuccessFactors EC Employee Profile OData API -->
+<!-- ORD ID: sap.sf:apiResource:ECEmployeeProfile:v1 -->
+<!-- Key entities: EPPublicProfile (userId), Background_Education, Background_Languages -->

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:atom="http://www.w3.org/2005/Atom">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sf="http://www.successfactors.com/edm/sf" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="PerPerson" EntityType="SFOData.PerPerson" sap:label="Biographical Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerPersonal" EntityType="SFOData.PerPersonal" sap:label="Personal Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerEmail" EntityType="SFOData.PerEmail" sap:label="Email Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerPhone" EntityType="SFOData.PerPhone" sap:label="Phone Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerAddressDEFLT" EntityType="SFOData.PerAddressDEFLT" sap:label="Addresses" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerEmergencyContacts" EntityType="SFOData.PerEmergencyContacts" sap:label="Primary Emergency Contact" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerNationalId" EntityType="SFOData.PerNationalId" sap:label="National ID Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityType Name="PerPerson">
+                <Key><PropertyRef Name="personIdExternal"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" sap:filterable="true" sap:sortable="true" sap:label="Person Id"/>
+                <Property Name="dateOfBirth" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Date Of Birth"/>
+                <Property Name="countryOfBirth" Type="Edm.String" Nullable="true" MaxLength="100" sap:label="Country Of Birth"/>
+                <Property Name="birthName" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Birth Name"/>
+                <Property Name="userId" Type="Edm.String" Nullable="true" MaxLength="100" sap:label="User Id"/>
+            </EntityType>
+            <EntityType Name="PerPersonal">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="startDate"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="firstName" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="First Name"/>
+                <Property Name="lastName" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Last Name"/>
+                <Property Name="middleName" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Middle Name"/>
+                <Property Name="gender" Type="Edm.String" Nullable="true" MaxLength="2" sap:label="Gender"/>
+                <Property Name="nationality" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Nationality"/>
+                <Property Name="maritalStatus" Type="Edm.String" Nullable="true" MaxLength="50" sap:label="Marital Status"/>
+                <Property Name="displayName" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Display Name"/>
+            </EntityType>
+            <EntityType Name="PerEmail">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="emailType"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="emailType" Type="Edm.String" Nullable="false" MaxLength="38" sap:label="Email Type"/>
+                <Property Name="emailAddress" Type="Edm.String" Nullable="true" MaxLength="100" sap:label="Email Address"/>
+                <Property Name="isPrimary" Type="Edm.Boolean" Nullable="true" sap:label="Is Primary"/>
+            </EntityType>
+            <EntityType Name="PerPhone">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="phoneType"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="phoneType" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Phone Type"/>
+                <Property Name="phoneNumber" Type="Edm.String" Nullable="true" MaxLength="100" sap:label="Phone Number"/>
+                <Property Name="isPrimary" Type="Edm.Boolean" Nullable="true" sap:label="Is Primary"/>
+                <Property Name="areaCode" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Area Code"/>
+                <Property Name="countryCode" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Country Code"/>
+            </EntityType>
+            <EntityType Name="PerAddressDEFLT">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="addressType"/><PropertyRef Name="startDate"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="addressType" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Address Type"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="address1" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Address Line 1"/>
+                <Property Name="address2" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Address Line 2"/>
+                <Property Name="city" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="City"/>
+                <Property Name="state" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="State"/>
+                <Property Name="zipCode" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Zip Code"/>
+                <Property Name="country" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Country"/>
+            </EntityType>
+            <EntityType Name="PerEmergencyContacts">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="name"/><PropertyRef Name="relationship"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="256" sap:label="Name"/>
+                <Property Name="relationship" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Relationship"/>
+                <Property Name="phone" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Phone"/>
+                <Property Name="email" Type="Edm.String" Nullable="true" MaxLength="100" sap:label="Email"/>
+                <Property Name="primaryFlag" Type="Edm.String" Nullable="true" MaxLength="1" sap:label="Primary Flag"/>
+            </EntityType>
+            <EntityType Name="PerNationalId">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="country"/><PropertyRef Name="cardType"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="country" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Country"/>
+                <Property Name="cardType" Type="Edm.String" Nullable="false" MaxLength="256" sap:label="National Id Card Type"/>
+                <Property Name="nationalId" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="National Id"/>
+                <Property Name="isPrimary" Type="Edm.Boolean" Nullable="true" sap:label="Is Primary"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SAP SuccessFactors EC Global Assignment OData API -->
+<!-- ORD ID: sap.sf:apiResource:ECGlobalAssignment:v1 -->
+<!-- Key entities: EmpGlobalAssignment (userId), SecondaryAssignments -->

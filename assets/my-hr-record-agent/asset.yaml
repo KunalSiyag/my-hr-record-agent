@@ -1,0 +1,57 @@
+apiVersion: asset.sap/v1
+kind: Asset
+type: agent
+
+metadata:
+  name: my-hr-record-agent
+  version: "1.0.0"
+  description: "An AI agent that helps employees view and export a consolidated view of their own HR data from SAP SuccessFactors Employee Central"
+
+container:
+  buildPath: .
+  port: 5000
+
+probes:
+  startup:
+    path: /.well-known/agent.json
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 18
+  liveness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+provides:
+  apis:
+    - name: my-hr-record-agent
+      kind: a2a
+      ordId: customer.build:apiResource:my-hr-record-agent-d03ef.my-hr-record-agent:v1
+
+requires:
+  - name: sap-sf-personal-information-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-personal-information-mcp-server:v1
+  - name: sap-sf-employment-information-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-employment-information-mcp-server:v1
+  - name: sap-sf-skills-management-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-skills-management-mcp-server:v1
+  - name: sap-sf-employee-profile-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-employee-profile-mcp-server:v1
+  - name: sap-sf-global-assignment-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-global-assignment-mcp-server:v1
+  - name: sap-sf-employee-global-information-mcp-server
+    kind: mcp-server
+    ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-employee-global-information-mcp-server:v1

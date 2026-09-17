@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="EPPublicProfile" EntityType="SFOData.EPPublicProfile" sap:label="EPPublicProfile" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="Background_Education" EntityType="SFOData.Background_Education" sap:label="Background_Education" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="Background_Languages" EntityType="SFOData.Background_Languages" sap:label="Background_Languages" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="Background_OutsideWorkExperience" EntityType="SFOData.Background_OutsideWorkExperience" sap:label="Background_OutsideWorkExperience" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityType Name="EPPublicProfile">
+                <Key><PropertyRef Name="userId"/></Key>
+                <Property Name="userId" Type="Edm.String" Nullable="false" sap:label="userId"/>
+                <Property Name="introduction" Type="Edm.String" Nullable="true" sap:label="Introduction"/>
+                <Property Name="myNameText" Type="Edm.String" Nullable="true" sap:label="My Name Text"/>
+            </EntityType>
+            <EntityType Name="Background_Education">
+                <Key><PropertyRef Name="backgroundElementId"/><PropertyRef Name="userId"/></Key>
+                <Property Name="backgroundElementId" Type="Edm.Int64" Nullable="false" sap:label="Background Element Id"/>
+                <Property Name="userId" Type="Edm.String" Nullable="false" sap:label="userId"/>
+                <Property Name="school" Type="Edm.String" Nullable="true" sap:label="School"/>
+                <Property Name="degree" Type="Edm.String" Nullable="true" sap:label="Degree"/>
+                <Property Name="major" Type="Edm.String" Nullable="true" sap:label="Major"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="From Date"/>
+                <Property Name="endDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="End Date"/>
+            </EntityType>
+            <EntityType Name="Background_Languages">
+                <Key><PropertyRef Name="backgroundElementId"/><PropertyRef Name="userId"/></Key>
+                <Property Name="backgroundElementId" Type="Edm.Int64" Nullable="false" sap:label="Background Element Id"/>
+                <Property Name="userId" Type="Edm.String" Nullable="false" sap:label="userId"/>
+                <Property Name="language" Type="Edm.String" Nullable="true" sap:label="Language"/>
+                <Property Name="readingProf" Type="Edm.String" Nullable="true" sap:label="Reading Proficiency"/>
+                <Property Name="speakingProf" Type="Edm.String" Nullable="true" sap:label="Speaking Proficiency"/>
+                <Property Name="writingProf" Type="Edm.String" Nullable="true" sap:label="Writing Proficiency"/>
+            </EntityType>
+            <EntityType Name="Background_OutsideWorkExperience">
+                <Key><PropertyRef Name="backgroundElementId"/><PropertyRef Name="userId"/></Key>
+                <Property Name="backgroundElementId" Type="Edm.Int64" Nullable="false" sap:label="Background Element Id"/>
+                <Property Name="userId" Type="Edm.String" Nullable="false" sap:label="userId"/>
+                <Property Name="employer" Type="Edm.String" Nullable="false" sap:label="Company Name"/>
+                <Property Name="startTitle" Type="Edm.String" Nullable="false" sap:label="Title"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="endDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="End Date"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

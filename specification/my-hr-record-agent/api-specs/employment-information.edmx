@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SAP SuccessFactors EC Employment Information OData API -->
+<!-- ORD ID: sap.sf:apiResource:ECEmploymentInformation:v1 -->
+<!-- Key entities: EmpEmployment, EmpJob, EmpJobRelationships, EmpWorkPermit -->
+<!-- Filter keys: personIdExternal / userId -->

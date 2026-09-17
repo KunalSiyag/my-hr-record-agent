@@ -1,0 +1,18 @@
+[
+  {"name": "get_metadata_sfodata", "title": "get_metadata_sfodata"},
+  {"name": "batch_for_sfodata", "title": "batch_for_sfodata"},
+  {"name": "list_perperson_for_sfodata", "title": "list_PerPerson_for_sfodata"},
+  {"name": "get_perperson_for_sfodata", "title": "get_PerPerson_for_sfodata"},
+  {"name": "list_perpersonal_for_sfodata", "title": "list_PerPersonal_for_sfodata"},
+  {"name": "get_perpersonal_for_sfodata", "title": "get_PerPersonal_for_sfodata"},
+  {"name": "list_peremail_for_sfodata", "title": "list_PerEmail_for_sfodata"},
+  {"name": "get_peremail_for_sfodata", "title": "get_PerEmail_for_sfodata"},
+  {"name": "list_perphone_for_sfodata", "title": "list_PerPhone_for_sfodata"},
+  {"name": "get_perphone_for_sfodata", "title": "get_PerPhone_for_sfodata"},
+  {"name": "list_peraddressdeflt_for_sfodata", "title": "list_PerAddressDEFLT_for_sfodata"},
+  {"name": "get_peraddressdeflt_for_sfodata", "title": "get_PerAddressDEFLT_for_sfodata"},
+  {"name": "list_peremergencycontacts_for_sfodata", "title": "list_PerEmergencyContacts_for_sfodata"},
+  {"name": "get_peremergencycontacts_for_sfodata", "title": "get_PerEmergencyContacts_for_sfodata"},
+  {"name": "list_pernationalid_for_sfodata", "title": "list_PerNationalId_for_sfodata"},
+  {"name": "get_pernationalid_for_sfodata", "title": "get_PerNationalId_for_sfodata"}
+]

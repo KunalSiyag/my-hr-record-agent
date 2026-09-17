@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="EmpEmployment" EntityType="SFOData.EmpEmployment" sap:label="Employment Details" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="EmpJob" EntityType="SFOData.EmpJob" sap:label="Job Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="EmpJobRelationships" EntityType="SFOData.EmpJobRelationships" sap:label="Job Relationships" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="EmpWorkPermit" EntityType="SFOData.EmpWorkPermit" sap:label="Work Permit Info" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityType Name="EmpEmployment">
+                <Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="userId"/></Key>
+                <Property Name="personIdExternal" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Person ID External"/>
+                <Property Name="userId" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="User ID"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Hire Date"/>
+                <Property Name="endDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Termination Date"/>
+                <Property Name="isContingentWorker" Type="Edm.Boolean" Nullable="true" sap:label="Contingent Worker"/>
+                <Property Name="originalStartDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Original Start Date"/>
+                <Property Name="seniorityDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Seniority Start Date"/>
+            </EntityType>
+            <EntityType Name="EmpJob">
+                <Key><PropertyRef Name="userId"/><PropertyRef Name="seqNumber"/><PropertyRef Name="startDate"/></Key>
+                <Property Name="userId" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="User ID"/>
+                <Property Name="seqNumber" Type="Edm.Int64" Nullable="false" sap:label="Sequence Number"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="jobTitle" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Job Title"/>
+                <Property Name="jobCode" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Job Classification"/>
+                <Property Name="department" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Department"/>
+                <Property Name="division" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Division"/>
+                <Property Name="company" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Company"/>
+                <Property Name="location" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Location"/>
+                <Property Name="emplStatus" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Employee Status"/>
+                <Property Name="employmentType" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Employment Type"/>
+                <Property Name="managerId" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Supervisor"/>
+                <Property Name="position" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Position"/>
+                <Property Name="standardHours" Type="Edm.Double" Nullable="true" sap:label="Standard Weekly Hours"/>
+                <Property Name="fte" Type="Edm.Double" Nullable="true" sap:label="FTE"/>
+                <Property Name="regularTemp" Type="Edm.String" Nullable="true" MaxLength="32" sap:label="Regular/Temporary"/>
+            </EntityType>
+            <EntityType Name="EmpJobRelationships">
+                <Key><PropertyRef Name="userId"/><PropertyRef Name="relationshipType"/><PropertyRef Name="startDate"/></Key>
+                <Property Name="userId" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="User ID"/>
+                <Property Name="relationshipType" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Relationship Type"/>
+                <Property Name="startDate" Type="Edm.DateTime" Nullable="false" sap:display-format="Date" sap:label="Start Date"/>
+                <Property Name="relUserId" Type="Edm.String" Nullable="true" MaxLength="384" sap:label="Name"/>
+                <Property Name="endDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="End Date"/>
+            </EntityType>
+            <EntityType Name="EmpWorkPermit">
+                <Key><PropertyRef Name="userId"/><PropertyRef Name="country"/><PropertyRef Name="documentNumber"/><PropertyRef Name="documentType"/></Key>
+                <Property Name="userId" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="User ID"/>
+                <Property Name="country" Type="Edm.String" Nullable="false" MaxLength="256" sap:label="Country"/>
+                <Property Name="documentNumber" Type="Edm.String" Nullable="false" MaxLength="256" sap:label="Document Number"/>
+                <Property Name="documentType" Type="Edm.String" Nullable="false" MaxLength="256" sap:label="Document Type"/>
+                <Property Name="expirationDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Expiration Date"/>
+                <Property Name="issueDate" Type="Edm.DateTime" Nullable="true" sap:display-format="Date" sap:label="Issue Date"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

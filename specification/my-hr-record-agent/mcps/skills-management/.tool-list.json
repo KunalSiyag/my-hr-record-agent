@@ -1,0 +1,12 @@
+[
+  {"name": "get_metadata_sfodata", "title": "get_metadata_sfodata"},
+  {"name": "batch_for_sfodata", "title": "batch_for_sfodata"},
+  {"name": "list_skillprofile_for_sfodata", "title": "list_SkillProfile_for_sfodata"},
+  {"name": "get_skillprofile_for_sfodata", "title": "get_SkillProfile_for_sfodata"},
+  {"name": "list_skillentity_for_sfodata", "title": "list_SkillEntity_for_sfodata"},
+  {"name": "get_skillentity_for_sfodata", "title": "get_SkillEntity_for_sfodata"},
+  {"name": "list_competencyentity_for_sfodata", "title": "list_CompetencyEntity_for_sfodata"},
+  {"name": "get_competencyentity_for_sfodata", "title": "get_CompetencyEntity_for_sfodata"},
+  {"name": "list_ratedskillmapping_for_sfodata", "title": "list_RatedSkillMapping_for_sfodata"},
+  {"name": "get_ratedskillmapping_for_sfodata", "title": "get_RatedSkillMapping_for_sfodata"}
+]

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="PerPerson" EntityType="SFOData.PerPerson" sap:label="Biographical Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerPersonal" EntityType="SFOData.PerPersonal" sap:label="Personal Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerEmail" EntityType="SFOData.PerEmail" sap:label="Email Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerPhone" EntityType="SFOData.PerPhone" sap:label="Phone Information" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerAddressDEFLT" EntityType="SFOData.PerAddressDEFLT" sap:label="Addresses" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerEmergencyContacts" EntityType="SFOData.PerEmergencyContacts" sap:label="Emergency Contact" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+                <EntitySet Name="PerNationalId" EntityType="SFOData.PerNationalId" sap:label="National ID" sap:creatable="false" sap:updatable="false" sap:upsertable="true" sap:deletable="false"/>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="PerPerson"><Key><PropertyRef Name="personIdExternal"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="dateOfBirth" Type="Edm.DateTime" Nullable="true"/><Property Name="countryOfBirth" Type="Edm.String" Nullable="true"/><Property Name="userId" Type="Edm.String" Nullable="true"/></EntityType>
+            <EntityType Name="PerPersonal"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="startDate"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="startDate" Type="Edm.DateTime" Nullable="false"/><Property Name="firstName" Type="Edm.String" Nullable="true"/><Property Name="lastName" Type="Edm.String" Nullable="true"/><Property Name="gender" Type="Edm.String" Nullable="true"/><Property Name="nationality" Type="Edm.String" Nullable="true"/></EntityType>
+            <EntityType Name="PerEmail"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="emailType"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="emailType" Type="Edm.String" Nullable="false"/><Property Name="emailAddress" Type="Edm.String" Nullable="true"/><Property Name="isPrimary" Type="Edm.Boolean" Nullable="true"/></EntityType>
+            <EntityType Name="PerPhone"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="phoneType"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="phoneType" Type="Edm.String" Nullable="false"/><Property Name="phoneNumber" Type="Edm.String" Nullable="true"/></EntityType>
+            <EntityType Name="PerAddressDEFLT"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="addressType"/><PropertyRef Name="startDate"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="addressType" Type="Edm.String" Nullable="false"/><Property Name="startDate" Type="Edm.DateTime" Nullable="false"/><Property Name="address1" Type="Edm.String" Nullable="true"/><Property Name="city" Type="Edm.String" Nullable="true"/><Property Name="country" Type="Edm.String" Nullable="true"/></EntityType>
+            <EntityType Name="PerEmergencyContacts"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="name"/><PropertyRef Name="relationship"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="name" Type="Edm.String" Nullable="false"/><Property Name="relationship" Type="Edm.String" Nullable="false"/><Property Name="phone" Type="Edm.String" Nullable="true"/></EntityType>
+            <EntityType Name="PerNationalId"><Key><PropertyRef Name="personIdExternal"/><PropertyRef Name="country"/><PropertyRef Name="cardType"/></Key><Property Name="personIdExternal" Type="Edm.String" Nullable="false"/><Property Name="country" Type="Edm.String" Nullable="false"/><Property Name="cardType" Type="Edm.String" Nullable="false"/><Property Name="nationalId" Type="Edm.String" Nullable="true"/></EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

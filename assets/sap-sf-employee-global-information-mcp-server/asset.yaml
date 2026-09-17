@@ -1,0 +1,20 @@
+apiVersion: asset.sap/v1
+kind: Asset
+type: mcp-server
+
+metadata:
+  name: sap-sf-employee-global-information-mcp-server
+  version: "1.0.0"
+  translation: mcp-translation/translation.json
+  apiSpec: mcp-translation/api-spec.edmx
+
+provides:
+  apis:
+    - name: sap-sf-employee-global-information-mcp-server
+      kind: mcp-server
+      ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-employee-global-information-mcp-server:v1
+
+requires:
+  - name: EmployeeCentralEC
+    kind: api
+    ordId: sap.sf:apiResource:EmployeeCentralEC:v1

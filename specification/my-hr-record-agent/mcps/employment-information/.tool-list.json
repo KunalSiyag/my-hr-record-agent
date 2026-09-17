@@ -1,0 +1,12 @@
+[
+  {"name": "get_metadata_sfodata", "title": "get_metadata_sfodata"},
+  {"name": "batch_for_sfodata", "title": "batch_for_sfodata"},
+  {"name": "list_empemployment_for_sfodata", "title": "list_EmpEmployment_for_sfodata"},
+  {"name": "get_empemployment_for_sfodata", "title": "get_EmpEmployment_for_sfodata"},
+  {"name": "list_empjob_for_sfodata", "title": "list_EmpJob_for_sfodata"},
+  {"name": "get_empjob_for_sfodata", "title": "get_EmpJob_for_sfodata"},
+  {"name": "list_empjobrelationships_for_sfodata", "title": "list_EmpJobRelationships_for_sfodata"},
+  {"name": "get_empjobrelationships_for_sfodata", "title": "get_EmpJobRelationships_for_sfodata"},
+  {"name": "list_empworkpermit_for_sfodata", "title": "list_EmpWorkPermit_for_sfodata"},
+  {"name": "get_empworkpermit_for_sfodata", "title": "get_EmpWorkPermit_for_sfodata"}
+]

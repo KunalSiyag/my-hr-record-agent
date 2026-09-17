@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices m:DataServiceVersion="2.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="SFODataSet" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="SkillProfile" EntityType="SFOData.SkillProfile" sap:label="Skill Profile" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="SkillEntity" EntityType="SFOData.SkillEntity" sap:label="Skill" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="CompetencyEntity" EntityType="SFOData.CompetencyEntity" sap:label="Competency" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+                <EntitySet Name="RatedSkillMapping" EntityType="SFOData.RatedSkillMapping" sap:label="Rated Skills" sap:creatable="true" sap:updatable="true" sap:upsertable="true" sap:deletable="true"/>
+            </EntityContainer>
+        </Schema>
+        <Schema Namespace="SFOData" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:sap="http://www.successfactors.com/edm/sap">
+            <EntityType Name="SkillProfile">
+                <Key><PropertyRef Name="externalCode"/></Key>
+                <Property Name="externalCode" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="User Id"/>
+                <Property Name="status" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Status"/>
+                <Property Name="lastModifiedDate" Type="Edm.DateTime" Nullable="true" sap:label="Last Modified"/>
+            </EntityType>
+            <EntityType Name="SkillEntity">
+                <Key><PropertyRef Name="externalCode"/></Key>
+                <Property Name="externalCode" Type="Edm.String" Nullable="false" MaxLength="128" sap:label="GUID"/>
+                <Property Name="name_defaultValue" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Skill Name"/>
+                <Property Name="definition_defaultValue" Type="Edm.String" Nullable="true" MaxLength="4000" sap:label="Definition"/>
+                <Property Name="status" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Status"/>
+            </EntityType>
+            <EntityType Name="CompetencyEntity">
+                <Key><PropertyRef Name="externalCode"/></Key>
+                <Property Name="externalCode" Type="Edm.String" Nullable="false" MaxLength="128" sap:label="GUID"/>
+                <Property Name="name_defaultValue" Type="Edm.String" Nullable="true" MaxLength="2048" sap:label="Competency Name"/>
+                <Property Name="description_defaultValue" Type="Edm.String" Nullable="true" MaxLength="4000" sap:label="Description"/>
+                <Property Name="status" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Status"/>
+            </EntityType>
+            <EntityType Name="RatedSkillMapping">
+                <Key><PropertyRef Name="SkillProfile_externalCode"/><PropertyRef Name="externalCode"/></Key>
+                <Property Name="SkillProfile_externalCode" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Skill Profile User Id"/>
+                <Property Name="externalCode" Type="Edm.String" Nullable="false" MaxLength="128" sap:label="External Code"/>
+                <Property Name="skill" Type="Edm.String" Nullable="true" MaxLength="128" sap:label="Skill"/>
+                <Property Name="selfRatedLevel_defaultValue" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Self Rated Level"/>
+                <Property Name="managerRatedLevel_defaultValue" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Manager Rated Level"/>
+                <Property Name="expectedLevel_defaultValue" Type="Edm.String" Nullable="true" MaxLength="255" sap:label="Expected Proficiency Level"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

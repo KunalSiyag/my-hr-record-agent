@@ -1,0 +1,20 @@
+apiVersion: asset.sap/v1
+kind: Asset
+type: mcp-server
+
+metadata:
+  name: sap-sf-global-assignment-mcp-server
+  version: "1.0.0"
+  translation: mcp-translation/translation.json
+  apiSpec: mcp-translation/api-spec.edmx
+
+provides:
+  apis:
+    - name: sap-sf-global-assignment-mcp-server
+      kind: mcp-server
+      ordId: customer.build:apiResource:my-hr-record-agent-d03ef.sap-sf-global-assignment-mcp-server:v1
+
+requires:
+  - name: ECGlobalAssignment
+    kind: api
+    ordId: sap.sf:apiResource:ECGlobalAssignment:v1

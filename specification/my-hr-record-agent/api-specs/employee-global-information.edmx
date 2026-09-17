@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SAP SuccessFactors Employee Global Information OData API -->
+<!-- ORD ID: sap.sf:apiResource:EmployeeCentralEC:v1 -->
+<!-- Key entities: PerGlobalInfoUSA, PerGlobalInfoGBR, etc. (country + personIdExternal) -->

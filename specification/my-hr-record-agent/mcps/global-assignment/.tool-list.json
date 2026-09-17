@@ -1,0 +1,7 @@
+[
+  {"name": "get_metadata_sfodata", "title": "get_metadata_sfodata"},
+  {"name": "batch_for_sfodata", "title": "batch_for_sfodata"},
+  {"name": "list_empglobalassignment_for_sfodata", "title": "list_EmpGlobalAssignment_for_sfodata"},
+  {"name": "get_empglobalassignment_for_sfodata", "title": "get_EmpGlobalAssignment_for_sfodata"},
+  {"name": "count_empglobalassignment_for_sfodata", "title": "count_EmpGlobalAssignment_for_sfodata"}
+]

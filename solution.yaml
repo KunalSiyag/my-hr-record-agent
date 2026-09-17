@@ -1,0 +1,16 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: my-hr-record-agent-d03ef
+  version: "1.0.0"
+  description: "AI agent that helps employees view and export a consolidated view of their own HR data from SAP SuccessFactors Employee Central, with PDF and JSON export."
+
+assets:
+  - ref: ./assets/sap-sf-personal-information-mcp-server/asset.yaml
+  - ref: ./assets/sap-sf-employment-information-mcp-server/asset.yaml
+  - ref: ./assets/sap-sf-skills-management-mcp-server/asset.yaml
+  - ref: ./assets/sap-sf-employee-profile-mcp-server/asset.yaml
+  - ref: ./assets/sap-sf-global-assignment-mcp-server/asset.yaml
+  - ref: ./assets/sap-sf-employee-global-information-mcp-server/asset.yaml
+  - ref: ./assets/my-hr-record-agent/asset.yaml

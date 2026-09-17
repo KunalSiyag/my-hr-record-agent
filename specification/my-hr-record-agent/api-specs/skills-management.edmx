@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SAP SuccessFactors EC Skills Management OData API -->
+<!-- ORD ID: sap.sf:apiResource:ECSkillsManagement:v1 -->
+<!-- Key entities: SkillProfile (externalCode=userId), SkillEntity, CompetencyEntity -->

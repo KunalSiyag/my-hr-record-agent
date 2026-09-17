@@ -1,0 +1,475 @@
+{
+  "servers": {
+    "sf-personal-information": {
+      "mcp_server_name": "sap.mcp/sfodata",
+      "description": "MCP server for SuccessFactors Personal Information (PerPerson, PerPersonal, PerEmail, PerPhone, PerAddressDEFLT, PerEmergencyContacts, PerNationalId)",
+      "tools": {
+        "get_metadata_sfodata": {
+          "description": "Get metadata of the OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"1.0\" xmlns:edmx=\"http://schemas.microsoft.com/ado/2007/06/edmx\"><edmx:DataServices><Schema Namespace=\"SFOData\"></Schema></edmx:DataServices></edmx:Edmx>"
+        },
+        "list_perpersonal_for_sfodata": {
+          "description": "Retrieve a list of entities from the PerPersonal collection.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Fields to select" },
+              "top": { "type": "string", "description": "Max number of records" },
+              "skip": { "type": "string", "description": "Records to skip" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "startDate": "/Date(946684800000)/",
+                  "firstName": "Jane",
+                  "lastName": "Smith",
+                  "gender": "F",
+                  "nationality": "US",
+                  "dateOfBirth": "/Date(504921600000)/",
+                  "countryOfBirth": "US"
+                }
+              ]
+            }
+          }
+        },
+        "get_perpersonal_for_sfodata": {
+          "description": "Retrieve a single PerPersonal entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "personidexternal": { "type": "string", "description": "Person external ID" },
+              "startdate": { "type": "string", "description": "Start date" },
+              "select": { "type": "string", "description": "Fields to select" }
+            },
+            "required": ["personidexternal", "startdate"]
+          },
+          "mock_response": {
+            "d": {
+              "personIdExternal": "EMP-10001",
+              "startDate": "/Date(946684800000)/",
+              "firstName": "Jane",
+              "lastName": "Smith",
+              "gender": "F",
+              "nationality": "US",
+              "dateOfBirth": "/Date(504921600000)/",
+              "countryOfBirth": "US"
+            }
+          }
+        },
+        "list_perperson_for_sfodata": {
+          "description": "Retrieve a list of PerPerson entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Fields to select" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "dateOfBirth": "/Date(504921600000)/",
+                  "countryOfBirth": "US",
+                  "userId": "jsmith"
+                }
+              ]
+            }
+          }
+        },
+        "list_peremail_for_sfodata": {
+          "description": "Retrieve a list of PerEmail entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "emailType": "work",
+                  "emailAddress": "jane.smith@company.com",
+                  "isPrimary": "true"
+                }
+              ]
+            }
+          }
+        },
+        "list_perphone_for_sfodata": {
+          "description": "Retrieve a list of PerPhone entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "phoneType": "work",
+                  "phoneNumber": "+1-555-0123"
+                }
+              ]
+            }
+          }
+        },
+        "list_peraddressdeflt_for_sfodata": {
+          "description": "Retrieve a list of PerAddressDEFLT entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "addressType": "home",
+                  "startDate": "/Date(946684800000)/",
+                  "address1": "123 Main Street",
+                  "city": "San Francisco",
+                  "country": "US",
+                  "zipCode": "94105"
+                }
+              ]
+            }
+          }
+        },
+        "list_peremergencycontacts_for_sfodata": {
+          "description": "Retrieve a list of PerEmergencyContacts entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "name": "John Smith",
+                  "relationship": "Spouse",
+                  "phone": "+1-555-0456"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "sf-employment-information": {
+      "mcp_server_name": "sap.mcp/sfodata-employment",
+      "description": "MCP server for SuccessFactors Employment Information (EmpEmployment, EmpJob)",
+      "tools": {
+        "list_empemployment_for_sfodata": {
+          "description": "Retrieve a list of EmpEmployment entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Fields to select" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "personIdExternal": "EMP-10001",
+                  "userId": "jsmith",
+                  "startDate": "/Date(1072915200000)/"
+                }
+              ]
+            }
+          }
+        },
+        "list_empjob_for_sfodata": {
+          "description": "Retrieve a list of EmpJob entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Fields to select" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "jsmith",
+                  "seqNumber": 1,
+                  "startDate": "/Date(1072915200000)/",
+                  "jobTitle": "Senior Software Engineer",
+                  "department": "Engineering",
+                  "company": "ACME Corp",
+                  "emplStatus": "A",
+                  "employmentType": "Regular"
+                }
+              ]
+            }
+          }
+        },
+        "get_empjob_for_sfodata": {
+          "description": "Retrieve a single EmpJob entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "userid": { "type": "string", "description": "User ID" },
+              "seqnumber": { "type": "string", "description": "Sequence number" },
+              "startdate": { "type": "string", "description": "Start date" }
+            },
+            "required": ["userid", "seqnumber", "startdate"]
+          },
+          "mock_response": {
+            "d": {
+              "userId": "jsmith",
+              "seqNumber": 1,
+              "startDate": "/Date(1072915200000)/",
+              "jobTitle": "Senior Software Engineer",
+              "department": "Engineering",
+              "company": "ACME Corp",
+              "emplStatus": "A",
+              "employmentType": "Regular"
+            }
+          }
+        }
+      }
+    },
+    "sf-skills-management": {
+      "mcp_server_name": "sap.mcp/sfodata-skills",
+      "description": "MCP server for SuccessFactors Skills Management",
+      "tools": {
+        "list_skills_for_sfodata": {
+          "description": "Retrieve a list of employee skills.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "jsmith",
+                  "skillId": "SKILL-001",
+                  "skillName": "Python Programming",
+                  "proficiencyLevel": "Expert",
+                  "lastUsedDate": "/Date(1704067200000)/"
+                },
+                {
+                  "userId": "jsmith",
+                  "skillId": "SKILL-002",
+                  "skillName": "Cloud Architecture",
+                  "proficiencyLevel": "Advanced",
+                  "lastUsedDate": "/Date(1701475200000)/"
+                }
+              ]
+            }
+          }
+        },
+        "get_metadata_sfodata": {
+          "description": "Get metadata of the skills OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"1.0\"></edmx:Edmx>"
+        }
+      }
+    },
+    "sf-employee-profile": {
+      "mcp_server_name": "sap.mcp/sfodata-profile",
+      "description": "MCP server for SuccessFactors Employee Profile",
+      "tools": {
+        "list_background_education_for_sfodata": {
+          "description": "Retrieve employee education background.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "jsmith",
+                  "school": "State University",
+                  "degree": "Bachelor of Science",
+                  "major": "Computer Science",
+                  "endDate": "/Date(946684800000)/"
+                }
+              ]
+            }
+          }
+        },
+        "list_background_languages_for_sfodata": {
+          "description": "Retrieve employee language skills.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "jsmith",
+                  "language": "English",
+                  "proficiency": "Native",
+                  "reading": "5",
+                  "writing": "5",
+                  "speaking": "5"
+                },
+                {
+                  "userId": "jsmith",
+                  "language": "Spanish",
+                  "proficiency": "Intermediate",
+                  "reading": "3",
+                  "writing": "2",
+                  "speaking": "3"
+                }
+              ]
+            }
+          }
+        },
+        "get_metadata_sfodata": {
+          "description": "Get metadata of the profile OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"1.0\"></edmx:Edmx>"
+        }
+      }
+    },
+    "sf-global-assignment": {
+      "mcp_server_name": "sap.mcp/sfodata-global-assignment",
+      "description": "MCP server for SuccessFactors Global Assignment",
+      "tools": {
+        "list_empglobalassignment_for_sfodata": {
+          "description": "Retrieve a list of global assignment entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": []
+            }
+          }
+        },
+        "get_metadata_sfodata": {
+          "description": "Get metadata of the global assignment OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"1.0\"></edmx:Edmx>"
+        }
+      }
+    },
+    "sf-employee-global-information": {
+      "mcp_server_name": "sap.mcp/sfodata-global-info",
+      "description": "MCP server for SuccessFactors Employee Global Information",
+      "tools": {
+        "list_empglobalinfo_for_sfodata": {
+          "description": "Retrieve employee global information.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "top": { "type": "string", "description": "Max number of records" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "d": {
+              "results": [
+                {
+                  "userId": "jsmith",
+                  "country": "US",
+                  "startDate": "/Date(1072915200000)/",
+                  "endDate": "/Date(9999999999000)/"
+                }
+              ]
+            }
+          }
+        },
+        "get_metadata_sfodata": {
+          "description": "Get metadata of the global information OData service.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"1.0\"></edmx:Edmx>"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "my-hr-record-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 6,
+    "total_tools": 19,
+    "generated_from": [
+      "sap-sf-personal-information-mcp-server/mcp-translation/translation.json",
+      "sap-sf-employment-information-mcp-server/mcp-translation/translation.json",
+      "sap-sf-skills-management-mcp-server/mcp-translation/translation.json",
+      "sap-sf-employee-profile-mcp-server/mcp-translation/translation.json",
+      "sap-sf-global-assignment-mcp-server/mcp-translation/translation.json",
+      "sap-sf-employee-global-information-mcp-server/mcp-translation/translation.json"
+    ],
+    "generation_date": "2025-01-01"
+  }
+}
