@@ -1,0 +1,4 @@
+# Deploy archives produced by the solution build step.
+# Regenerated on every deploy and contains a copy of .build, so committing it
+# causes large binary deltas and duplicate solution_id values in history.
+build/
