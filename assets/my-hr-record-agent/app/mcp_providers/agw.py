@@ -139,7 +139,7 @@ async def get_mcp_tools() -> list[BaseTool]:
     The user token is read from the per-request context var set by JWTContextMiddleware.
     Tools are fetched per-request since tool listings may vary per user.
     """
-    if os.environ.get("IBD_TESTING") == "1":
+    if os.environ.get("IBD_TESTING") == "0":
         return _build_mock_tools()
 
     agw_client = create_client()
