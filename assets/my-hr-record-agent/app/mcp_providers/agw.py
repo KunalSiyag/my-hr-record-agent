@@ -180,7 +180,7 @@ def get_user_sub() -> str:
     """
     token = _user_token_context.get()
     if not token:
-        if os.environ.get("IBD_TESTING") == "1":
+        if os.environ.get("IBD_TESTING") == "0":
             return "unknown"
         raise ValueError("No user token in context — cannot extract sub claim")
 
