@@ -16,7 +16,9 @@ from a2a.server.tasks import InMemoryTaskStore
 from a2a.types import AgentCapabilities, AgentCard, AgentSkill
 from starlette.applications import Starlette
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.routing import Mount
+from starlette.requests import Request
+from starlette.responses import Response
+from starlette.routing import Mount, Route
 
 from agent_executor import AgentExecutor
 from mcp_providers.agw import set_user_token, reset_user_token
@@ -59,7 +61,25 @@ def main(host: str, port: int):
     )
     a2a_app = a2a_server.build()
 
+    async def download_file(request: Request) -> Response:
+        """Serve a previously generated export: GET /download/{filename}."""
+        from export_tools import get_stored_file
+
+        filename = request.path_params.get("filename", "")
+        stored = get_stored_file(filename)
+        if not stored:
+            return Response(content=f"File not found: {filename}", status_code=404)
+        return Response(
+            content=stored["bytes"],
+            media_type=stored.get("mime", "application/octet-stream"),
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
+
+    # IMPORTANT: specific routes must come BEFORE Mount("/", ...) —
+    # otherwise the A2A mount swallows /download/* and you get 404.
     app = Starlette(routes=[
+        Route("/download/{filename}", endpoint=download_file, methods=["GET"]),
+        Route("/files/{filename}", endpoint=download_file, methods=["GET"]),
         Mount("/", app=a2a_app),
     ])
 

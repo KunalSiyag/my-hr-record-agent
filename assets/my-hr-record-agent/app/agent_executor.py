@@ -16,6 +16,7 @@ from a2a.utils import new_agent_text_message, new_task
 from a2a.utils.errors import ServerError
 
 from agent import SampleAgent
+from email_tools import get_email_tools
 from export_tools import get_export_tools, get_pending_file, _current_context
 from load_skill_resources import get_load_skill_resource_tool
 from mcp_providers.agw import get_mcp_tools
@@ -51,7 +52,7 @@ class AgentExecutor(A2AAgentExecutor):
         except Exception as e:
             logger.error(f"Failed to load tools from Agent Gateway: {e}")
 
-        tools = [*tools, *self.skill_tools, *get_export_tools()]
+        tools = [*tools, *self.skill_tools, *get_export_tools(), *get_email_tools()]
 
         updater = TaskUpdater(event_queue, task.id, task.context_id)
 
@@ -84,6 +85,8 @@ class AgentExecutor(A2AAgentExecutor):
             # Check if a file was generated during this request
             pending = get_pending_file(ctx_id)
             if pending:
+                import os as _os
+
                 logger.info("Attaching file artifact: %s", pending["filename"])
                 artifact_parts.append(
                     Part(root=FilePart(
@@ -94,6 +97,12 @@ class AgentExecutor(A2AAgentExecutor):
                         )
                     ))
                 )
+                # Always append a clickable link — the chat UI reliably renders
+                # text but often drops FilePart artifacts.
+                base = _os.environ.get("AGENT_PUBLIC_URL", "").rstrip("/")
+                url = f"{base}/download/{pending['filename']}" if base else f"/download/{pending['filename']}"
+                if url not in (final_text or ""):
+                    final_text = (final_text or "") + f"\n\nDownload your file here: {url}"
 
             await updater.add_artifact(artifact_parts, name="agent_result")
             await updater.complete()

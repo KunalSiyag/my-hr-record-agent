@@ -10,6 +10,7 @@ from __future__ import annotations
 import base64
 import json
 import logging
+import os
 from typing import Any
 
 from langchain_core.tools import StructuredTool
@@ -21,10 +22,20 @@ from hr_export import generate_json, generate_pdf
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# In-request file registry — keyed by context_id set before agent.stream()
+# File stores
 # ---------------------------------------------------------------------------
+# _file_store: filename -> {"bytes": raw_bytes, "mime": mime_type}
+# Served by GET /download/{filename} (and alias /files/{filename}) in main.py.
+_file_store: dict[str, dict] = {}
 
+# _pending_files: context_id -> {filename, mime_type, b64_bytes}
+# Kept for A2A FilePart artifact compat in agent_executor.py.
 _pending_files: dict[str, dict] = {}  # context_id -> {filename, mime_type, b64_bytes}
+
+
+def get_stored_file(filename: str) -> dict | None:
+    """Return stored file by filename, or None if unknown."""
+    return _file_store.get(filename)
 
 
 def get_pending_file(context_id: str) -> dict | None:
@@ -34,11 +45,18 @@ def get_pending_file(context_id: str) -> dict | None:
 
 def set_context_id(context_id: str) -> None:
     """Called by AgentExecutor before streaming so tools know where to store."""
-    _current_context_id.set(context_id)
+    _current_context["current"] = context_id
 
 
 # Use a simple module-level variable — single async execution per request
 _current_context: dict[str, str] = {}  # maps "current" -> context_id
+
+
+def _download_url(filename: str) -> str:
+    base = os.environ.get("AGENT_PUBLIC_URL", "").rstrip("/")
+    if base:
+        return f"{base}/download/{filename}"
+    return f"/download/{filename}"
 
 
 # ---------------------------------------------------------------------------
@@ -81,6 +99,8 @@ def _generate_pdf_tool(hr_data_json: str, employee_id: str = "unknown") -> str:
         b64 = base64.b64encode(pdf_bytes).decode("ascii")
         filename = f"hr-record-{employee_id}.pdf"
 
+        # Store raw bytes for GET /download/{filename}
+        _file_store[filename] = {"bytes": pdf_bytes, "mime": "application/pdf"}
         # Store for AgentExecutor to pick up and emit as FilePart
         ctx_id = _current_context.get("current", "default")
         _pending_files[ctx_id] = {
@@ -89,12 +109,14 @@ def _generate_pdf_tool(hr_data_json: str, employee_id: str = "unknown") -> str:
             "b64_bytes": b64,
         }
 
-        logger.info("PDF generated for %s (%d bytes), stored under ctx=%s", employee_id, len(pdf_bytes), ctx_id)
+        url = _download_url(filename)
+        logger.info("PDF generated for %s (%d bytes), stored under ctx=%s url=%s", employee_id, len(pdf_bytes), ctx_id, url)
         return json.dumps({
             "status": "success",
             "filename": filename,
             "size_bytes": len(pdf_bytes),
-            "message": f"PDF generated successfully ({len(pdf_bytes)} bytes). It will be attached for download.",
+            "download_url": url,
+            "message": f"PDF generated successfully ({len(pdf_bytes)} bytes). Download it here: {url}",
         })
     except Exception as exc:
         logger.exception("PDF generation failed")
@@ -110,6 +132,7 @@ def _generate_json_tool(hr_data_json: str, employee_id: str = "unknown") -> str:
         b64 = base64.b64encode(encoded).decode("ascii")
         filename = f"hr-record-{employee_id}.json"
 
+        _file_store[filename] = {"bytes": encoded, "mime": "application/json"}
         ctx_id = _current_context.get("current", "default")
         _pending_files[ctx_id] = {
             "filename": filename,
@@ -117,12 +140,14 @@ def _generate_json_tool(hr_data_json: str, employee_id: str = "unknown") -> str:
             "b64_bytes": b64,
         }
 
-        logger.info("JSON generated for %s (%d bytes), stored under ctx=%s", employee_id, len(encoded), ctx_id)
+        url = _download_url(filename)
+        logger.info("JSON generated for %s (%d bytes), stored under ctx=%s url=%s", employee_id, len(encoded), ctx_id, url)
         return json.dumps({
             "status": "success",
             "filename": filename,
             "size_bytes": len(encoded),
-            "message": f"JSON generated successfully ({len(encoded)} bytes). It will be attached for download.",
+            "download_url": url,
+            "message": f"JSON generated successfully ({len(encoded)} bytes). Download it here: {url}",
         })
     except Exception as exc:
         logger.exception("JSON generation failed")
@@ -142,7 +167,8 @@ def get_export_tools() -> list[StructuredTool]:
                 "Serialize all retrieved HR data as a JSON string and pass it as hr_data_json. "
                 "Include all sections: personal_info, employment, skills_profile, "
                 "emergency_contacts, addresses, global_assignments. "
-                "After calling this tool, tell the user their PDF is ready and will be downloaded automatically."
+                "The tool returns a download_url — ALWAYS include that exact URL in your reply "
+                "so the user can click to download."
             ),
             args_schema=ExportInput,
             func=_generate_pdf_tool,
@@ -154,7 +180,8 @@ def get_export_tools() -> list[StructuredTool]:
                 "Serialize all retrieved HR data as a JSON string and pass it as hr_data_json. "
                 "Include all sections: personal_info, employment, skills_profile, "
                 "emergency_contacts, addresses, global_assignments. "
-                "After calling this tool, tell the user their JSON export is ready and will be downloaded automatically."
+                "The tool returns a download_url — ALWAYS include that exact URL in your reply "
+                "so the user can click to download."
             ),
             args_schema=ExportInput,
             func=_generate_json_tool,
@@ -162,6 +189,6 @@ def get_export_tools() -> list[StructuredTool]:
     ]
 
 
-# Legacy helper
+# Legacy helper — now backed by _file_store so GET /download works.
 def get_stored_file(filename: str):  # noqa: ANN001
-    return None
+    return _file_store.get(filename)
